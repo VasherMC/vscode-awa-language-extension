@@ -1,16 +1,23 @@
-# Template for VS Code python tools extensions
+# Awa 5.0 Language
 
-This is a template repository to get you started on building a VS Code extension for your favorite python tool. It could be a linter, formatter, or code analysis, or all of those together. This template will give you the basic building blocks you need to build a VS Code extension for it.
+This VSCode Extension implements support for the [Awa 5.0 Language](), providing
+ - Minor syntax highlighting
+ - Some simple static analysis (warning for issues with Labels and incomplete instructions)
+ - Inlay hints, showing Awatism shorthand for instructions and data
+ - (not implemented, potentially later:) A built-in runner and debugger
+
+Most of the language support functionality is provided by the bundled Language Server,
+in `bundled/tool`.
 
 ## Programming Languages and Frameworks
 
-The extension template has two parts, the extension part and language server part. The extension part is written in TypeScript, and language server part is written in Python over the [_pygls_][pygls] (Python language server) library.
+The extension has two parts, the VSCode extension part and language server part. The extension part is written in TypeScript, and language server part is written in Python using the [_pygls_][pygls] (Python language server) library.
 
-For the most part you will be working on the python part of the code when using this template. You will be integrating your tool with the extension part using the [Language Server Protocol](https://microsoft.github.io/language-server-protocol). [_pygls_][pygls] currently works on the [version 3.16 of LSP](https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/).
+[_pygls_][pygls] currently works on the [version 3.16 of LSP](https://microsoft.github.io/language-server-protocol/specifications/specification-3-16/).
 
 The TypeScript part handles working with VS Code and its UI. The extension template comes with few settings pre configured that can be used by your tool. If you need to add new settings to support your tool, you will have to work with a bit of TypeScript. The extension has examples for few settings that you can follow. You can also look at extensions developed by our team for some of the popular tools as reference.
 
-## Requirements
+## Development Requirements
 
 1. VS Code 1.64.0 or greater
 1. Python 3.9 or greater
@@ -20,25 +27,19 @@ The TypeScript part handles working with VS Code and its UI. The extension templ
 
 You should know to create and work with python virtual environments.
 
-## Getting Started
+## Getting Started (developing the extension)
 
-1. Use this [template to create your repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 1. Check-out your repo locally on your development machine.
 1. Create and activate a python virtual environment for this project in a terminal. Be sure to use the minimum version of python for your tool. This template was written to work with python 3.9 or greater.
 1. Install `nox` in the activated environment: `python -m pip install nox`.
 1. Add your favorite tool to `requirements.in`
 1. Run `nox --session setup`.
 1. **Optional** Install test dependencies `python -m pip install -r src/test/python_tests/requirements.txt`. You will have to install these to run tests from the Test Explorer.
-1. Open `package.json`, look for and update the following things:
-    1. Find and replace `<pytool-module>` with module name for your tool. This will be used internally to create settings namespace, register commands, etc. Recommendation is to use lower case version of the name, no spaces, `-` are ok. For example, replacing `<pytool-module>` with `pylint` will lead to settings looking like `pylint.args`. Another example, replacing `<pytool-module>` with `black-formatter` will make settings look like `black-formatter.args`.
-    1. Find and replace `<pytool-display-name>` with display name for your tool. This is used as the title for the extension in market place, extensions view, output logs, etc. For example, for the `black` extension this is `Black Formatter`.
 1. Install node packages using `npm install`.
-1. Go to https://marketplace.visualstudio.com/vscode and create a publisher account if you don't already have one.
-    1. Use the published name in `package.json` by replacing `<my-publisher>` with the name you registered in the marketplace.
 
 ## Features of this Template
 
-After finishing the getting started part, this template would have added the following. Assume `<pytool-module>` was replaced with `mytool`, and `<pytool-display-name>` with`My Tool`:
+After finishing the getting started part, this template would have added the following. Assume `awa50-language` was replaced with `mytool`, and `Awa5.0 Language` with`My Tool`:
 
 1. A command `My Tool: Restart Server` (command Id: `mytool.restart`).
 1. Following setting:
@@ -71,9 +72,9 @@ References, to other extension created by our team using the template:
 - Implementation showing how to handle Formatting. [Black Formatter](https://github.com/microsoft/vscode-black-formatter/tree/main/bundled/tool)
 - Implementation showing how to handle Code Actions. [isort](https://github.com/microsoft/vscode-isort/blob/main/bundled/tool)
 
-## Building and Run the extension
+## Build and Run the extension
 
-Run the `Debug Extension and Python` configuration form VS Code. That should build and debug the extension in host window.
+Run the `Debug Extension and Python` configuration from VS Code. That should build and debug the extension in host window.
 
 Note: if you just want to build you can run the build task in VS Code (`ctrl`+`shift`+`B`)
 
@@ -97,7 +98,7 @@ You can add new settings by adding details for the settings in `package.json` fi
 
 You can follow how `restart` command is implemented in `package.json` and `extension.ts` for how to add commands. You can also contribute commands from Python via the Language Server Protocol.
 
-## Testing
+## Testing the extension
 
 See `src/test/python_tests/test_server.py` for starting point. See, other referred projects here for testing various aspects of running the tool over LSP.
 
@@ -105,7 +106,7 @@ If you have installed the test requirements you should be able to see the tests 
 
 You can also run all tests using `nox --session tests` command.
 
-## Linting
+## Linting the extension
 
 Run `nox --session lint` to run linting on both Python and TypeScript code. Please update the nox file if you want to use a different linter and formatter.
 
